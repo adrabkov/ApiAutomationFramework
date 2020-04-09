@@ -8,16 +8,11 @@ using WebDriverManager.DriverConfigs.Impl;
 
 namespace FrameworkCSharp.Driver
 {
-    class DriverHolder
+    public class DriverHolder
     {
         public static IWebDriver driver { get; set; }
 
-        public DriverHolder()
-        {
-            driver = GetInstance();
-        }
-
-        public static IWebDriver GetInstance()
+        public IWebDriver GetInstance()
         {
             if (driver == null)
             {
@@ -28,7 +23,7 @@ namespace FrameworkCSharp.Driver
             return driver;
         }
 
-        public static void Clean()
+        public void Clean()
         {
             driver.Quit();
             driver = null;

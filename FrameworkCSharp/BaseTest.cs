@@ -2,20 +2,19 @@
 using FrameworkCSharp.Enum;
 using FrameworkCSharp.Pages;
 using FrameworkCSharp.Utilities;
-using FrameworkCSharp.Utilities.API;
 using FrameworkCSharp.Utilities.API.Requests;
 using NUnit.Framework;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
 using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Text;
+using WebDriverManager.DriverConfigs.Impl;
 
 namespace FrameworkCSharp
 {
-    public abstract class BaseTest
+    public abstract class BaseTest : DriverHolder
     {
-        public static IWebDriver driver;
+
         protected CustomerData customerData = new CustomerData();
         protected ApiRequests apiRequests = new ApiRequests();
         private static readonly string Url = CustomerData.URL;
@@ -43,7 +42,7 @@ namespace FrameworkCSharp
         [SetUp]
         public void SetUp()
         {
-            driver = DriverHolder.GetInstance();
+            driver = GetInstance();
             driver.Manage().Window.Maximize();
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(IMPLICIT_TIMEOUT);
         }
@@ -51,14 +50,15 @@ namespace FrameworkCSharp
         [TearDown]
         public void CloseBrowser()
         {
-            DriverHolder.Clean();
+            Clean();
         }
 
-        public static T Navigate<T>()
+        public T Navigate<T>()
     where T : PageBase
         {
             driver.Navigate().GoToUrl(Url);
             return (T)Activator.CreateInstance(typeof(T), new[] { driver });
         }
+
     }
 }

@@ -6,9 +6,9 @@ using System.Text;
 
 namespace FrameworkCSharp
 {
-    public class AutomationContext
+    public class AutomationContext:BaseTest
     {
-        public CommonSteps Common { get { return _common ?? (_common = new CommonSteps(BaseTest.Navigate<SignInPage>(), BaseTest.driver)); } }
+        public CommonSteps Common { get { return _common ?? (_common = new CommonSteps(Navigate<SignInPage>(), driver)); } }
 
         private CommonSteps _common;
 

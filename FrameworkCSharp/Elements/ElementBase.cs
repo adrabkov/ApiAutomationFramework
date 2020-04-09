@@ -19,8 +19,8 @@ namespace FrameworkCSharp.Elements
 		protected internal IWebElement WebElement { get; set; }
 
 		protected ILog Logger { get; set; }
-		protected IWebDriver WebDriver { get; private set; }
-		private IWebDriver driver = DriverHolder.GetInstance();
+		//protected IWebDriver WebDriver { get; private set; }
+		//private IWebDriver driver = DriverHolder.GetInstance();
 
 		private const int DEFAULT_VALIDATION_TIMEOUT_IN_SEC = WaitDefaults.LONG_EVALUATION_TIMEOUT;
 		private const int DEFAULT_TIMEOUT_IN_SEC = WaitDefaults.LONG_EVALUATION_TIMEOUT;
@@ -43,12 +43,12 @@ namespace FrameworkCSharp.Elements
 		public bool WaitForElementPresent(By locator, int timeoutSec = 5)
 		{
 			Boolean result = true;
-			var wait = new WebDriverWait(DriverHolder.GetInstance(), TimeSpan.FromSeconds(timeoutSec));
+			var wait = new WebDriverWait(WebDriver, TimeSpan.FromSeconds(timeoutSec));
 			try
 			{
 				wait.Until(waiting =>
 				{
-					var webElements = DriverHolder.GetInstance().FindElements(locator);
+					var webElements = WebDriver.FindElements(locator);
 					return webElements.Count != 0;
 				});
 			}
@@ -61,7 +61,7 @@ namespace FrameworkCSharp.Elements
 
 		public ReadOnlyCollection<IWebElement> FindAllElements(By by)
 		{
-			return driver.FindElements(by);
+			return WebDriver.FindElements(by);
 		}
 
 		//public List<IWebElement> FindAllLIstElements(By by)
@@ -71,7 +71,7 @@ namespace FrameworkCSharp.Elements
 
 		public bool IsPresent()
 		{
-			return DriverHolder.GetInstance().FindElements(Locator).Count > 0;
+			return WebDriver.FindElements(Locator).Count > 0;
 		}
 
 		public bool IsDisplayed(IWebElement webElement)
@@ -83,7 +83,7 @@ namespace FrameworkCSharp.Elements
 		{
 			try
 			{
-				var iv = DriverHolder.GetInstance().FindElement(Locator).Displayed;
+				var iv = WebDriver.FindElement(Locator).Displayed;
 				if (iv == true) { return true; } else { return false; }
 			}
 			catch (NoSuchElementException) { return false; }
@@ -98,7 +98,7 @@ namespace FrameworkCSharp.Elements
 		public bool WaitForElementIsVisible(By Locator, int timeout)
 		{
 
-			var wait = new WebDriverWait(DriverHolder.GetInstance(), TimeSpan.FromSeconds(timeout));
+			var wait = new WebDriverWait(WebDriver, TimeSpan.FromSeconds(timeout));
 			wait.Timeout = TimeSpan.FromMinutes(1);
 			wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
 
@@ -163,36 +163,36 @@ where T : PageBase
 
 		public void SwitchToFrame(By by)
 		{
-			driver.SwitchTo().Frame(FindExistingElement(by));
+			WebDriver.SwitchTo().Frame(FindExistingElement(by));
 		}
 
 		public void SwitchToParrentFrame()
 		{
-			driver.SwitchTo().ParentFrame();
+			WebDriver.SwitchTo().ParentFrame();
 		}
 
 		public void Move(By by)
 		{
-			var move = new Actions(driver);
-			move.MoveToElement(driver.FindElement(by)).Build().Perform();
+			var move = new Actions(WebDriver);
+			move.MoveToElement(WebDriver.FindElement(by)).Build().Perform();
 		}
 
-		public static void WaitForElementIsClickable(By locator)
+		public void WaitForElementIsClickable(By locator)
 		{
-			var wait = new WebDriverWait(DriverHolder.GetInstance(), TimeSpan.FromSeconds(10));
+			var wait = new WebDriverWait(WebDriver, TimeSpan.FromSeconds(10));
 			wait.Until(ExpectedConditions.ElementToBeClickable(locator));
 		}
 
 		public string GetText(By by)
 		{
 			WaitForElementPresent(by);
-			return driver.FindElement(by).Text;
+			return WebDriver.FindElement(by).Text;
 		}
 
 		public void Click(By by)
 		{
 			WaitForElementPresent(by);
-			driver.FindElement(by).Click();
+			WebDriver.FindElement(by).Click();
 		}
 
 		public void Click(By by, IWebElement element)

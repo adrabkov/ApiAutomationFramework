@@ -10,7 +10,7 @@ namespace FrameworkCSharp
     public class BaseEntity
     {
         protected internal IWebElement WebElement { get; set; }
-        protected IWebDriver WebDriver { get; private set; }
+        protected IWebDriver WebDriver { get; set; }
 
         protected IWebElement FindVisibleElement(By by, int timeoutInSeconds = 5, int pollIntervalSec = 0)
         {
@@ -54,31 +54,31 @@ namespace FrameworkCSharp
 
         protected T EvaluateElement<T>(Func<IWebDriver, T> condition, int timeoutInSec = 5, int pollIntervalSec = 0)
         {
-            return EvaluateElement<T>(condition, () => DriverHolder.GetInstance().Navigate().Refresh(), timeoutInSec, pollIntervalSec);
+            return EvaluateElement<T>(condition, () => WebDriver.Navigate().Refresh(), timeoutInSec, pollIntervalSec);
         }
 
         protected T EvaluateScript<T>(string script, int timeoutInSec = 5, int pollIntervalSec = 0)
         {
             if (timeoutInSec > 0 || pollIntervalSec > 0)
             {
-                var wait = new WebDriverWait(DriverHolder.GetInstance(), TimeSpan.FromSeconds(timeoutInSec));
+                var wait = new WebDriverWait(WebDriver, TimeSpan.FromSeconds(timeoutInSec));
 
                 if (pollIntervalSec > 0)
                     wait.PollingInterval = TimeSpan.FromSeconds(pollIntervalSec);
 
                 return wait.Until((webDriver) =>
                 {
-                    return (T)(DriverHolder.GetInstance() as IJavaScriptExecutor).ExecuteScript(script);
+                    return (T)(WebDriver as IJavaScriptExecutor).ExecuteScript(script);
                 });
             }
-            return (T)(DriverHolder.GetInstance() as IJavaScriptExecutor).ExecuteScript(script);
+            return (T)(WebDriver as IJavaScriptExecutor).ExecuteScript(script);
         }
 
         protected T EvaluateElement<T>(Func<IWebDriver, T> condition, Action refreshAction, int timeoutInSec = 5, int pollIntervalSec = 0)
         {
             if (timeoutInSec > 0 || pollIntervalSec > 0)
             {
-                var wait = new WebDriverWait(DriverHolder.GetInstance(), TimeSpan.FromSeconds(timeoutInSec));
+                var wait = new WebDriverWait(WebDriver, TimeSpan.FromSeconds(timeoutInSec));
                 wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
                 if (pollIntervalSec > 0)
                 {
@@ -103,7 +103,7 @@ namespace FrameworkCSharp
             if (!WaitForAjaxLoad())
                 throw new Exception("AJAX failed to completed in time.");
 
-            return condition(DriverHolder.GetInstance());
+            return condition(WebDriver);
         }
 
         protected bool IsDocumentReady(int timeoutInSec = 10)
@@ -129,9 +129,9 @@ namespace FrameworkCSharp
             {
                 try
                 {
-                    var wait = new WebDriverWait(DriverHolder.GetInstance(), TimeSpan.FromMinutes(1));
+                    var wait = new WebDriverWait(WebDriver, TimeSpan.FromMinutes(1));
                     wait.PollingInterval = TimeSpan.FromMilliseconds(100);
-                    wait.Until(wd => (bool)(DriverHolder.GetInstance() as IJavaScriptExecutor).ExecuteScript("return jQuery.active == 0"));
+                    wait.Until(wd => (bool)(WebDriver as IJavaScriptExecutor).ExecuteScript("return jQuery.active == 0"));
                     return true;
                 }
                 catch (Exception)
