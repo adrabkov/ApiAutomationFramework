@@ -1,9 +1,7 @@
-﻿using FrameworkCSharp.Pages;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Remote;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using WebDriverManager.DriverConfigs.Impl;
 
 namespace FrameworkCSharp.Driver
@@ -20,6 +18,12 @@ namespace FrameworkCSharp.Driver
                 driver = new ChromeDriver();
             }
 
+            return driver;
+        }
+
+        public IWebDriver GetRemoteDriver(DriverOptions driverOptions)
+        {
+            driver = new RemoteWebDriver(new Uri("http://http://192.168.150.98:4444//wd/hub"), driverOptions);
             return driver;
         }
 

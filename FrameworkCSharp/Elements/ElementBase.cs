@@ -19,8 +19,6 @@ namespace FrameworkCSharp.Elements
 		protected internal IWebElement WebElement { get; set; }
 
 		protected ILog Logger { get; set; }
-		//protected IWebDriver WebDriver { get; private set; }
-		//private IWebDriver driver = DriverHolder.GetInstance();
 
 		private const int DEFAULT_VALIDATION_TIMEOUT_IN_SEC = WaitDefaults.LONG_EVALUATION_TIMEOUT;
 		private const int DEFAULT_TIMEOUT_IN_SEC = WaitDefaults.LONG_EVALUATION_TIMEOUT;
