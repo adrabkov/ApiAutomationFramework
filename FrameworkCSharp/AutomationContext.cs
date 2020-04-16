@@ -1,8 +1,5 @@
 ﻿using FrameworkCSharp.Pages;
 using FrameworkCSharp.Steps;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FrameworkCSharp
 {

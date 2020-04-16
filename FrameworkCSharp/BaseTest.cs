@@ -39,25 +39,11 @@ namespace FrameworkCSharp
             }
         }
 
-        //[SetUp]
-        //public void SetUp()
-        //{
-        //    driver = GetInstance();
-        //    driver.Manage().Window.Maximize();
-        //    driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(IMPLICIT_TIMEOUT);
-        //}
-
         [SetUp]
         public void SetUp()
         {
-            var driverOptions = new ChromeOptions();
-            driverOptions.AddAdditionalCapability("enableVNC", true, true);
-            driverOptions.AddAdditionalCapability("enableVideo", true, true);
-            driverOptions.AddAdditionalCapability("enableLog", true, true);
-            driverOptions.AddAdditionalCapability("screenResolution", "1920x1080x24", true);
-
-            driver = GetRemoteDriver(driverOptions);
-            //driver.Manage().Window.Maximize();
+            driver = GetDriver();
+            driver.Manage().Window.Maximize();
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(IMPLICIT_TIMEOUT);
         }
 
