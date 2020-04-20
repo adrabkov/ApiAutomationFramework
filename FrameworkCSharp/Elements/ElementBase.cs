@@ -175,6 +175,12 @@ where T : PageBase
 			move.MoveToElement(WebDriver.FindElement(by)).Build().Perform();
 		}
 
+		public void ScrollDownPage()
+		{
+			IJavaScriptExecutor js = ((IJavaScriptExecutor)WebDriver);
+			js.ExecuteScript("window.scrollTo(0, document.body.scrollHeight)");
+		}
+
 		public void WaitForElementIsClickable(By locator)
 		{
 			var wait = new WebDriverWait(WebDriver, TimeSpan.FromSeconds(10));
