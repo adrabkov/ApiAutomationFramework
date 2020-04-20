@@ -17,9 +17,9 @@ namespace FrameworkCSharp.Tests.API
         }
 
         [Test]
-        public void GetUserNameById()
+        public void VK_GetServerToken()
         {
-            var id = apiRequests.DeleteFriend(customerData.access_token, 210700286);
+            apiRequests.VK_GetServerToken(CustomerData.appId, CustomerData.SecureKey);
         }
 
     }

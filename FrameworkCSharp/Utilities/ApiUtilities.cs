@@ -1,10 +1,12 @@
 ﻿using Newtonsoft.Json;
 using RestSharp;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace FrameworkCSharp.Utilities
 {
@@ -19,15 +21,23 @@ namespace FrameworkCSharp.Utilities
             return (request, client);
         }
 
-            protected string GetResponce(IRestClient client, IRestRequest request)
+            protected string GetResponce(IRestClient client, IRestRequest request, bool isThrowExc = true)
         {
             var response = client.Execute(request);
+            var statusCode = response.StatusCode;
             if (response.IsSuccessful)
             {
-                var responseString = response.Content;
-                return responseString;
+                return response.Content;
             }
-            return null;
+            else
+            {
+                if (isThrowExc)
+                {
+                    throw new Exception("The response from the server returned with an error: " + statusCode);
+                }
+                else
+                    return response.StatusCode.ToString();
+            }
         }
 
             protected T ResponseConverter<T>(IRestClient client, IRestRequest request)
@@ -46,30 +56,49 @@ namespace FrameworkCSharp.Utilities
             return Dict[returned_value];
         }
 
-            protected static string GetRequest(string host, string req)
+            protected static async Task<string> GetRequest(string req)
         {
-            string str = "";
+            //string str = "";
 
-            var Vk = new HttpClient();
-            Vk.DefaultRequestHeaders.Add("Connection", "close");
-
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(req);
-            request.UseDefaultCredentials = true;
-            request.PreAuthenticate = true;
-            request.Credentials = CredentialCache.DefaultCredentials;
-            request.Method = "GET";
-            request.Host = host;
-            request.UserAgent = "RM";
-            request.ContentType = "application/x-www-form-urlencoded";
-            request.KeepAlive = false;
-
-            using (HttpWebResponse responsevk = (HttpWebResponse)request.GetResponse())
-            using (var stream = responsevk.GetResponseStream())
-            using (var streamReader = new StreamReader(stream, Encoding.UTF8))
+            using (var vk = new HttpClient())
             {
-                str = streamReader.ReadToEnd();
+                vk.BaseAddress = new Uri(req);
+                vk.DefaultRequestHeaders.Add("Connection", "close");
+                vk.DefaultRequestHeaders.Add("User-Agent", "RM");
+                HttpResponseMessage response = await vk.GetAsync(req);
+                response.EnsureSuccessStatusCode();
+                var resp = response.Content.ReadAsStreamAsync().ToString();
+                return resp;
             }
-            return str;
+
+            //var Vk = new HttpClient();
+            //Vk.BaseAddress = new Uri(req);
+            //Vk.DefaultRequestHeaders.Add("Connection", "close");
+            //Vk.DefaultRequestHeaders.Add("User-Agent", "RM");
+
+            //HttpResponseMessage response = await Vk.GetAsync(req);
+            //response.EnsureSuccessStatusCode();
+            //return await response.Content.ReadAsStringAsync();
+
+            //HttpWebRequest request = (HttpWebRequest)WebRequest.Create(req);
+            //request.UseDefaultCredentials = true;
+
+            //request.PreAuthenticate = true;
+            //request.Credentials = CredentialCache.DefaultCredentials;
+            //request.Method = "GET";
+            //request.Host = host;
+            //request.UserAgent = "RM";
+            //request.ContentType = "application/x-www-form-urlencoded";
+            //request.KeepAlive = false;
+
+
+            //using (HttpWebResponse responsevk = (HttpWebResponse)request.GetResponse())
+            //using (var stream = responsevk.GetResponseStream())
+            //using (var streamReader = new StreamReader(stream, Encoding.UTF8))
+            //{
+            //    str = streamReader.ReadToEnd();
+            //}
+            //return str;
         }
 
     }
