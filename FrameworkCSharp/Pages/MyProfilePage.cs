@@ -12,11 +12,13 @@ namespace FrameworkCSharp.Pages
         public MyProfilePage(IWebDriver webDriver)
            : base(_locator, webDriver) { }
 
-        private static readonly By _locator = By.XPath("//div[@class='top_profile_name']");
+        private static readonly By _locator = By.XPath("//h1[@class='page_name']");
         private readonly By postField = By.Id("post_field");
         private readonly By sendPost = By.Id("send_post");
         private readonly By photoLink = By.XPath(string.Format("//div[@id='side_bar_inner']//li{0}/a", MenuItems.Photos));
         private readonly By PostsList = By.XPath("//div[@class='_post_content']//div[contains(@class,'wall_post_text')]");
+        private readonly By ItemsMenu = By.XPath("//div[@id='side_bar_inner']//li");
+        
 
 
         public string GetTextFromPost(string postId)
@@ -39,7 +41,7 @@ namespace FrameworkCSharp.Pages
 
         public void CreatePost(string messagesForPost)
         {
-            ClickElementBy(postField);
+            WaitForElementIsClickable(postField);
             SendKeys(postField, messagesForPost);
             ClickElementBy(sendPost);
         }
@@ -49,16 +51,40 @@ namespace FrameworkCSharp.Pages
             ScrollDownPage();
             ReadOnlyCollection<IWebElement> productList = FindAllElements(PostsList);
             List<string> listWithTextPost = new List<string>();
-
             foreach (IWebElement text in productList)
             {
-                string priceText = text.Text;
+                string priceText = text.FindElement(By.XPath("//div[contains(@class,'wall_post_text')]")).Text;
                 listWithTextPost.Add(priceText);
             }
             return listWithTextPost;
             }
 
+        public string getListMessage(string time)
+        {
+            ScrollDownPage();
+            List<string> listWithMessages = new List<string>();
+            ReadOnlyCollection<IWebElement> productList = FindAllElements(PostsList);
+            
+            for (int i = 1; i <= productList.Count; i++)
+            {
+                if (FindExistingElement(By.XPath("//div[@id][" + i + "]/div[@class='_post_content']//div[@class='post_date']/a/span")).Text.Contains(time))
+                {
 
+                    var message = FindExistingElement(By.XPath("//div[@id][" + i + "]/div[@class='_post_content']//div[@class='wall_text']/div/div")).Text;
 
+                    listWithMessages.Add(message);
+                }
+            }
+            return listWithMessages[0];
+        }
+
+        public Communities openCommunitiesTab(int menu) => ClickIWebElement<Communities>(listOfMenuItems()[menu]);
+
+        private ReadOnlyCollection<IWebElement> listOfMenuItems()
+        {
+            WaitForElementIsVisible(ItemsMenu, 10);
+            ReadOnlyCollection<IWebElement> menu = FindAllElements(ItemsMenu);
+            return menu;
+        }
     }
 }

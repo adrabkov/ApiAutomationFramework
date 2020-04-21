@@ -23,5 +23,21 @@ namespace FrameworkCSharp.Steps
         {
             return (T)Activator.CreateInstance(typeof(T), new[] { WebDriver });
         }
+
+        protected T GetCurrentPage<T>(bool throwOnError = true, string castError = null)
+    where T : PageBase
+        {
+            if (CurrentPage == null)
+            {
+                if (throwOnError)
+                    throw new Exception("Current Page has not been set.");
+                return null;
+            }
+
+            var castedPage = CurrentPage as T;
+            if (castedPage == null && throwOnError)
+                throw new Exception(castError ?? string.Format("Current Page must be '{0}'.", typeof(T).Name));
+            return castedPage;
+        }
     }
 }

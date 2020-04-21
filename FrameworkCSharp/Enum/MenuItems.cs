@@ -5,25 +5,25 @@ using System.Text;
 
 namespace FrameworkCSharp.Enum
 {
-    public enum MenuItems : byte
+    public enum MenuItems : int
     {
         [Description("My profile")]
-        My_profile = 1,
+        My_profile = 0,
         [Description("News")]
-        News = 2,
+        News = 1,
         [Description("Messages")]
-        Messages = 3,
+        Messages = 2,
         [Description("Friends")]
-        Friends = 4,
+        Friends = 3,
         [Description("Communities")]
-        Communities = 5,
+        Communities = 4,
         [Description("Photos")]
-        Photos = 6,
+        Photos = 5,
         [Description("Music")]
-        Music = 7,
+        Music = 6,
         [Description("Videos")]
-        Videos = 8,
+        Videos = 7,
         [Description("Games")]
-        Games = 9
+        Games = 8
     }
 }

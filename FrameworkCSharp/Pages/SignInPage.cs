@@ -22,7 +22,7 @@ namespace FrameworkCSharp.Pages
 
         public void clickSign() => Click(submitButton);
 
-        public MyProfilePage clickLogIn() => ClickElementBy<MyProfilePage>(submitButton);
+        public FeedPage clickLogIn() => ClickElementBy<FeedPage>(submitButton);
 
 
 

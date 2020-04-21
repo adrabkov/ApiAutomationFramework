@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Threading;
 
 namespace FrameworkCSharp.Elements
 {
@@ -178,7 +179,8 @@ where T : PageBase
 		public void ScrollDownPage()
 		{
 			IJavaScriptExecutor js = ((IJavaScriptExecutor)WebDriver);
-			js.ExecuteScript("window.scrollTo(0, document.body.scrollHeight)");
+			js.ExecuteScript("window.scrollTo(0,document.body.offsetHeight)");
+			Thread.Sleep(10000);
 		}
 
 		public void WaitForElementIsClickable(By locator)

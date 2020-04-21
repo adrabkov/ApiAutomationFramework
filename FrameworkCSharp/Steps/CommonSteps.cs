@@ -30,8 +30,16 @@ namespace FrameworkCSharp.Steps
 
         public CommonSteps clickSubmitButton()
         {
-            _signInPage.clickLogIn();
+            CurrentPage = _signInPage.clickLogIn();
             return this;
         }
+
+        public CommonSteps MenuSelect(int menu)
+        {
+            var profilePage = GetCurrentPage<MyProfilePage>();
+            CurrentPage = profilePage.openCommunitiesTab(menu);
+            return this;
+        }
+
     }
 }
