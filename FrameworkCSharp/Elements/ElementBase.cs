@@ -160,6 +160,13 @@ where T : PageBase
 			input.SendKeys(text);
 		}
 
+		public void SelectElementByValue(By by, string value)
+		{
+			//WaitForElementPresent(by);
+			var selectElement = new SelectElement(FindClickableElement(by));
+			selectElement.SelectByValue(value);
+		}
+
 		public void SwitchToFrame(By by)
 		{
 			WebDriver.SwitchTo().Frame(FindExistingElement(by));

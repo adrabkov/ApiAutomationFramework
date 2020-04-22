@@ -18,7 +18,7 @@ namespace FrameworkCSharp.Pages
         private readonly By photoLink = By.XPath(string.Format("//div[@id='side_bar_inner']//li{0}/a", MenuItems.Photos));
         private readonly By PostsList = By.XPath("//div[@class='_post_content']//div[contains(@class,'wall_post_text')]");
         private readonly By ItemsMenu = By.XPath("//div[@id='side_bar_inner']//li");
-        
+        private readonly By FollowingGroups = By.XPath("//div[contains(@class, 'module_body')]");
 
 
         public string GetTextFromPost(string postId)
@@ -78,13 +78,31 @@ namespace FrameworkCSharp.Pages
             return listWithMessages[0];
         }
 
-        public Communities openCommunitiesTab(int menu) => ClickIWebElement<Communities>(listOfMenuItems()[menu]);
+        public Communities openCommunitiesTab(int menu) => ClickIWebElement<Communities>(listOfMenuItems(ItemsMenu)[menu]);
 
-        private ReadOnlyCollection<IWebElement> listOfMenuItems()
+        public bool FollowingListIsContains(string filmName)
         {
-            WaitForElementIsVisible(ItemsMenu, 10);
-            ReadOnlyCollection<IWebElement> menu = FindAllElements(ItemsMenu);
+            bool result = false;
+            for (int i = 0; i < listOfMenuItems(FollowingGroups).Count; i++)
+            {
+                if (listOfMenuItems(FollowingGroups)[i].Text.Contains(filmName))
+                {
+                    result=true;
+                    break;
+                }
+                else
+                    result =false;
+            }
+            return result;
+        }
+
+        private ReadOnlyCollection<IWebElement> listOfMenuItems(By by)
+        {
+            WaitForElementIsVisible(by, 10);
+            ReadOnlyCollection<IWebElement> menu = FindAllElements(by);
             return menu;
         }
+
+
     }
 }

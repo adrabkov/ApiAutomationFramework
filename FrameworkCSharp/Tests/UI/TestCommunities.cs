@@ -19,7 +19,26 @@ namespace FrameworkCSharp.Tests.UI
               .GetPage<FeedPage>();
 
             var myProfile = feedPage.openMyProfile();
-            myProfile.openCommunitiesTab((int)MenuItems.Communities);
+            var communities = myProfile.openCommunitiesTab((int)MenuItems.Communities);
+
+            //Find the most popular film group
+            communities.FillSearchCommunities("film");
+            communities.ClickSearchButton();
+            communities.ClickExtraSearchLink();
+            communities.ChooseOptionFromDropDown();
+
+            //open found group
+            var groupPage = communities.OpenGroup();
+            var expectedFilmName = groupPage.getFilmName();
+            groupPage.clickFollowButton();
+            feedPage.openMyProfile();
+
+            //check added group is present on the main page
+            Assert.IsTrue(myProfile.FollowingListIsContains(expectedFilmName));
+            
+
+
+
 
         }
     }
