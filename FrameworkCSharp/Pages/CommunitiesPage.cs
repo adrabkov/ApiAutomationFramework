@@ -7,9 +7,9 @@ using System.Threading;
 
 namespace FrameworkCSharp.Pages
 {
-    public class Communities : PageBase
+    public class CommunitiesPage : PageBase
     {
-        public Communities(IWebDriver webDriver)
+        public CommunitiesPage(IWebDriver webDriver)
            : base(_locator, webDriver) { }
 
         private static readonly By _locator = By.XPath("//li[@id='groups_groups_tab']/a");

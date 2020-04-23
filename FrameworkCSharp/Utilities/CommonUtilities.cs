@@ -1,9 +1,11 @@
-﻿using System.Xml.Serialization;
+﻿using System.IO;
+using System.Reflection;
+using System.Xml.Serialization;
 using IO = System.IO;
 
 namespace FrameworkCSharp.Utilities
 {
-    public class ParseXml
+    public class CommonUtilities
     {
         public static Settings GetSettings(string path)
         {
@@ -13,5 +15,10 @@ namespace FrameworkCSharp.Utilities
                 return (Settings)serializer.Deserialize(settingsStream);
             }
         }
+
+        public static string getPath(string fileName) => Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), fileName);
+        
+
+
     }
 }

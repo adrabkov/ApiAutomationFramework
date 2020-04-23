@@ -58,6 +58,8 @@ namespace FrameworkCSharp.Elements
 			return result;
 		}
 
+
+
 		public ReadOnlyCollection<IWebElement> FindAllElements(By by)
 		{
 			return WebDriver.FindElements(by);
@@ -113,6 +115,25 @@ namespace FrameworkCSharp.Elements
 			}
 		}
 
+		public bool WaitUntilElementIsVisible(By Locator, int timeout)
+		{
+
+			var wait = new WebDriverWait(WebDriver, TimeSpan.FromSeconds(timeout));
+			wait.Timeout = TimeSpan.FromMinutes(1);
+			wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+
+			try
+			{
+				wait.Until(ExpectedConditions.InvisibilityOfElementLocated(Locator));
+				return true;
+			}
+
+			catch (TimeoutException)
+			{
+				return false;
+			}
+		}
+
 		public void ClickElementBy(By by, int timeoutInSec = 10, int pollIntervalSec = 0)
 		{
 			var clickableElement = FindClickableElement(by, timeoutInSec, pollIntervalSec);
@@ -153,16 +174,26 @@ where T : PageBase
 				string.Format("ClickElementBy<{1}>: ({0})", webElement.ToString(), typeof(T).Name));
 		}
 
-		public void SendKeys(By by, string text)
+		public void SendKeys(By by, string text, bool isClear=true)
 		{
 			var input = FindVisibleElement(by);
-			input.Clear();
+			if (isClear)
+			{
+				input.Clear();
+			}
 			input.SendKeys(text);
 		}
 
+		public void UploadFile(By by, string path)
+		{
+			var fileUploadElement = FindExistingElement(by);
+			fileUploadElement.SendKeys(path);
+			//Thread.Sleep(10000);
+		}
+
+
 		public void SelectElementByValue(By by, string value)
 		{
-			//WaitForElementPresent(by);
 			var selectElement = new SelectElement(FindClickableElement(by));
 			selectElement.SelectByValue(value);
 		}

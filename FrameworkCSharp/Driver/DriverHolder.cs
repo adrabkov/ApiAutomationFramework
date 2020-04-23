@@ -12,7 +12,7 @@ namespace FrameworkCSharp.Driver
     {
         public static IWebDriver driver { get; set; }
 
-        private readonly Settings _settings = ParseXml.GetSettings(@"..\..\..\QASettings.xml");
+        private readonly Settings _settings = CommonUtilities.GetSettings(@"..\..\..\QASettings.xml");
         private readonly object _context;
 
         private Uri _remoteWebDriverClusterUri;

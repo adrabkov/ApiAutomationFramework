@@ -78,7 +78,9 @@ namespace FrameworkCSharp.Pages
             return listWithMessages[0];
         }
 
-        public Communities openCommunitiesTab(int menu) => ClickIWebElement<Communities>(listOfMenuItems(ItemsMenu)[menu]);
+        public CommunitiesPage openCommunitiesTab(int menu) => ClickIWebElement<CommunitiesPage>(listOfMenuItems(ItemsMenu)[menu]);
+
+        public PhotosPage openPhotosTab(int menu) => ClickIWebElement<PhotosPage>(listOfMenuItems(ItemsMenu)[menu]);
 
         public bool FollowingListIsContains(string filmName)
         {

@@ -1,9 +1,6 @@
 ﻿using FrameworkCSharp.Enum;
 using FrameworkCSharp.Pages;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FrameworkCSharp.Tests.UI
 {
