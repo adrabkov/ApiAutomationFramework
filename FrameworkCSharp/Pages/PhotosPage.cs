@@ -11,7 +11,7 @@ namespace FrameworkCSharp.Pages
            : base(_locator, webDriver) { }
 
         private static readonly By _locator = By.XPath("//div[@id='photos_albums_block']//div[@class='ui_crumb']");
-        private readonly By addPhotosInput = By.XPath("//div[@id='photos_albums_block']//input");
+        private readonly By addPhotosInput = By.XPath("//input[@id='photos_upload_input']");
         private readonly By addPhotoButton = By.XPath(" //*[@id='photos_albums_block']//button");
         private readonly By spinner = By.XPath("//div[@class='ui_progress_back']");
         private readonly By photoLocator = By.XPath("//div[contains(@id, 'photo_edit_row')]");
@@ -19,8 +19,6 @@ namespace FrameworkCSharp.Pages
 
         public void uploadImage()
         {
-            Thread.Sleep(2000);
-            //WaitForElementIsClickable(addPhotoButton);
             UploadFile(addPhotosInput, CommonUtilities.getPath("test.jpg"));
             WaitUntilElementIsVisible(spinner, 10);
         }

@@ -29,6 +29,7 @@ namespace FrameworkCSharp.Tests.UI
             driver.Navigate().Refresh();
 
             //checking photo is not displayed
+
             Assert.IsFalse(photos.downloadedPhotoIsDisplayed());
         }
     }
