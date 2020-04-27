@@ -3,7 +3,7 @@ using NUnit.Framework;
 
 namespace FrameworkCSharp.Tests.UI
 {
-    class PostTest : BaseTest
+    public class PostTest : BaseTest
     {
            [Test]
            public void CreatePostAndGetListPostsAndFindSomePosts()
@@ -22,10 +22,12 @@ namespace FrameworkCSharp.Tests.UI
 
             //check that the post with the correct text appeared on the wall
             var list = myProfile.getPostList();
-            Assert.AreEqual(messageForPost, list[0], "post with the correct test is not displayed on the wall");
+            Assert.IsTrue(list.Contains(messageForPost), "post with the correct test is not displayed on the wall");
 
             //find all posts for the specified period
-            myProfile.getListMessage("yesterday");
+            var listMessages = myProfile.getListMessage("24");
+            Assert.IsTrue(listMessages.Count != 0, "nothing found for the specified time");
+
         }
     }
 }

@@ -51,31 +51,24 @@ namespace FrameworkCSharp.Pages
             ScrollDownPage();
             ReadOnlyCollection<IWebElement> productList = FindAllElements(PostsList);
             List<string> listWithTextPost = new List<string>();
-            foreach (IWebElement text in productList)
-            {
-                string priceText = text.FindElement(By.XPath("//div[contains(@class,'wall_post_text')]")).Text;
-                listWithTextPost.Add(priceText);
-            }
+            foreach (IWebElement text in productList) { listWithTextPost.Add(text.Text); }
             return listWithTextPost;
             }
 
-        public string getListMessage(string time)
+        public List<string> getListMessage(string time)
         {
             ScrollDownPage();
             List<string> listWithMessages = new List<string>();
             ReadOnlyCollection<IWebElement> productList = FindAllElements(PostsList);
-            
-            for (int i = 1; i <= productList.Count; i++)
+            for (int i = 0; i < productList.Count; i++)
             {
-                if (FindExistingElement(By.XPath("//div[@id][" + i + "]/div[@class='_post_content']//div[@class='post_date']/a/span")).Text.Contains(time))
+                if (productList[i].ToString().Contains(time))
                 {
 
-                    var message = FindExistingElement(By.XPath("//div[@id][" + i + "]/div[@class='_post_content']//div[@class='wall_text']/div/div")).Text;
-
-                    listWithMessages.Add(message);
+                    listWithMessages.Add(productList[i].ToString());
                 }
             }
-            return listWithMessages[0];
+            return listWithMessages;
         }
 
         public CommunitiesPage openCommunitiesTab(int menu) => ClickIWebElement<CommunitiesPage>(listOfMenuItems(ItemsMenu)[menu]);

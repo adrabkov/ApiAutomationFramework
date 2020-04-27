@@ -80,7 +80,7 @@ namespace FrameworkCSharp.Elements
 			return webElement.Displayed;
 		}
 
-		public bool IsElementVisible()
+		public bool IsElementVisible(By Locator)
 		{
 			try
 			{
@@ -109,7 +109,7 @@ namespace FrameworkCSharp.Elements
 				return true;
 			}
 
-			catch (TimeoutException)
+			catch (WebDriverTimeoutException)
 			{
 				return false;
 			}
@@ -188,7 +188,6 @@ where T : PageBase
 		{
 			var fileUploadElement = FindExistingElement(by);
 			fileUploadElement.SendKeys(path);
-			//Thread.Sleep(10000);
 		}
 
 
@@ -229,19 +228,19 @@ where T : PageBase
 
 		public string GetText(By by)
 		{
-			WaitForElementPresent(by);
+			WaitForElementIsClickable(by);
 			return WebDriver.FindElement(by).Text;
 		}
 
 		public void Click(By by)
 		{
-			WaitForElementPresent(by);
+			WaitForElementIsClickable(by);
 			WebDriver.FindElement(by).Click();
 		}
 
 		public void Click(By by, IWebElement element)
 		{
-			WaitForElementPresent(by);
+			WaitForElementIsClickable(by);
 			element.Click();
 		}
 
