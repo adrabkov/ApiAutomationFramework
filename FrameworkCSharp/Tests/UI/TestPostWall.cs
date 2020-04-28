@@ -1,4 +1,5 @@
 ﻿using FrameworkCSharp.Pages;
+using FrameworkCSharp.Utilities;
 using NUnit.Framework;
 
 namespace FrameworkCSharp.Tests.UI
@@ -8,13 +9,13 @@ namespace FrameworkCSharp.Tests.UI
         [Test]
         public void CreatePostOnWallAndCheckAndDelete()
         {
-            string messageForWall = customerData.GenerateRandomString(20);
-            string messageForComment = customerData.GenerateRandomString(10);
-            var postId = apiRequests.WallPost(customerData.access_token, messageForWall).post_id.ToString();
+            string messageForWall = CommonUtilities.GenerateRandomString(20);
+            string messageForComment = CommonUtilities.GenerateRandomString(10);
+            var postId = apiRequests.WallPost(_settings.AccessToken, messageForWall).post_id.ToString();
 
             var feedPage = Automation.Common
-               .inputEmail(customerData.email)
-               .inputPassword(customerData.password)
+               .inputEmail(_settings.Email)
+               .inputPassword(_settings.Password)
                .clickSubmitButton()
                .GetPage<FeedPage>();
 
@@ -24,12 +25,12 @@ namespace FrameworkCSharp.Tests.UI
             Assert.AreEqual(messageForWall, messageFromWall);
 
             //adding comment for post and checking
-            apiRequests.CreateCommentForPost(customerData.access_token, postId, messageForComment);
+            apiRequests.CreateCommentForPost(_settings.AccessToken, postId, messageForComment);
             var messageFromComment = myProfilePage.GetTextFromComments(postId);
             Assert.AreEqual(messageFromComment, messageForComment);
 
             //deleting post from wall and checking
-            apiRequests.DeletePost(customerData.access_token, postId);
+            apiRequests.DeletePost(_settings.AccessToken, postId);
             driver.Navigate().Refresh();
             Assert.IsFalse(myProfilePage.PostIsDisplayed(postId));
 

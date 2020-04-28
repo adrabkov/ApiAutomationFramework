@@ -12,16 +12,15 @@ namespace FrameworkCSharp.Driver
     {
         public static IWebDriver driver { get; set; }
 
-        private readonly Settings _settings = CommonUtilities.GetSettings(@"..\..\..\QASettings.xml");
         private readonly object _context;
 
         private Uri _remoteWebDriverClusterUri;
 
-        protected IWebDriver GetDriver()
+        protected IWebDriver GetDriver(string browserString)
         {
-            if (_settings.Browser.Contains("remote"))
+            if (browserString.Contains("remote"))
             {
-                return GetRemoteDriver(_settings.Browser);
+                return GetRemoteDriver(browserString);
             }
             else
                 return GetLocalDriver();

@@ -1,4 +1,5 @@
 ﻿using FrameworkCSharp.Pages;
+using FrameworkCSharp.Utilities;
 using NUnit.Framework;
 
 namespace FrameworkCSharp.Tests.UI
@@ -8,11 +9,11 @@ namespace FrameworkCSharp.Tests.UI
            [Test]
            public void CreatePostAndGetListPostsAndFindSomePosts()
         {
-            var messageForPost = customerData.GenerateRandomString(10);
+            var messageForPost = CommonUtilities.GenerateRandomString(10);
 
             var feedPage = Automation.Common
-              .inputEmail(customerData.email)
-              .inputPassword(customerData.password)
+              .inputEmail(_settings.Email)
+              .inputPassword(_settings.Password)
               .clickSubmitButton()
               .GetPage<FeedPage>();
 

@@ -19,7 +19,7 @@ namespace FrameworkCSharp.Tests.API
         [Test]
         public void VK_GetServerToken()
         {
-            apiRequests.VK_GetServerToken(CustomerData.appId, CustomerData.SecureKey);
+            apiRequests.VK_GetServerToken(_settings.AppId, _settings.SecureKey);
         }
 
     }

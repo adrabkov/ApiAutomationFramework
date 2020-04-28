@@ -14,10 +14,9 @@ namespace FrameworkCSharp
 {
     public abstract class BaseTest : DriverHolder
     {
-
-        protected CustomerData customerData = new CustomerData();
+        protected readonly Settings _settings = CommonUtilities.GetSettings(@"..\..\..\QASettings.xml");
         protected ApiRequests apiRequests = new ApiRequests();
-        private static readonly string Url = CustomerData.URL;
+        //private static readonly string Url = CustomerData.URL;
         private ConcurrentDictionary<string, AutomationContext> _automationContext = new ConcurrentDictionary<string, AutomationContext>();
         private const int IMPLICIT_TIMEOUT = WaitDefaults.IMPLICIT_TIMEOUT;
 
@@ -42,7 +41,7 @@ namespace FrameworkCSharp
         [SetUp]
         public void SetUp()
         {
-            driver = GetDriver();
+            driver = GetDriver(_settings.Browser);
             driver.Manage().Window.Maximize();
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(IMPLICIT_TIMEOUT);
         }
@@ -56,7 +55,7 @@ namespace FrameworkCSharp
         public T Navigate<T>()
     where T : PageBase
         {
-            driver.Navigate().GoToUrl(Url);
+            driver.Navigate().GoToUrl(_settings.VKUrl);
             return (T)Activator.CreateInstance(typeof(T), new[] { driver });
         }
 

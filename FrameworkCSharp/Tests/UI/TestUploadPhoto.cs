@@ -10,8 +10,8 @@ namespace FrameworkCSharp.Tests.UI
         public void uploadPhotoAndCheck()
         {
             var myProfile = Automation.Common
-              .inputEmail(customerData.email)
-              .inputPassword(customerData.password)
+              .inputEmail(_settings.Email)
+              .inputPassword(_settings.Password)
               .clickSubmitButton()
               .GetPage<FeedPage>()
               .openMyProfile();
