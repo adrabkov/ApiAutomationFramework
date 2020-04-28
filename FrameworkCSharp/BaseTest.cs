@@ -16,7 +16,6 @@ namespace FrameworkCSharp
     {
         protected readonly Settings _settings = CommonUtilities.GetSettings(@"..\..\..\QASettings.xml");
         protected ApiRequests apiRequests = new ApiRequests();
-        //private static readonly string Url = CustomerData.URL;
         private ConcurrentDictionary<string, AutomationContext> _automationContext = new ConcurrentDictionary<string, AutomationContext>();
         private const int IMPLICIT_TIMEOUT = WaitDefaults.IMPLICIT_TIMEOUT;
 
