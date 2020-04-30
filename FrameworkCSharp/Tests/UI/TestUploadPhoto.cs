@@ -9,15 +9,14 @@ namespace FrameworkCSharp.Tests.UI
         [Test]
         public void uploadPhotoAndCheck()
         {
-            var myProfile = Automation.Common
+            var commonPage = Automation.Common
               .inputEmail(_settings.Email)
               .inputPassword(_settings.Password)
               .clickSubmitButton()
-              .GetPage<FeedPage>()
-              .openMyProfile();
+              .GetPage<CommonPage>();
 
             //upload photo
-            var photos = myProfile.openPhotosTab((int)MenuItems.Photos);
+            var photos = commonPage.openPhotosTab((int)MenuItems.Photos);
             photos.uploadImage();
 
             //checking the foto is displayed

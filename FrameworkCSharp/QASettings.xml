@@ -2,13 +2,13 @@
 <Settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <!--<Browser>remote|browser=chrome|version=81.0|capabilities=enableVNC,true;screenResolution,1920x1080x24|uri=http://192.168.0.104:4444/wd/hub </Browser>-->
   <Browser>Chrome </Browser>
-   <VKUrl>https://vk.com/</VKUrl>
-   <ApiUrl>https://api.vk.com/method/</ApiUrl>
-   <AuthUrl>https://oauth.vk.com/access_token?</AuthUrl>
-   <Email>375257542569</Email>
-   <Password>qwaszx@1</Password>
-   <UserId>48747902</UserId>
-   <AccessToken>62893ecf1b57a25b4c8e7e644dc498515dc05581927229baea5940cdf40a097454f69dbf3a1759d911da9</AccessToken>
-   <AppId>7374459</AppId>
-   <SecureKey>Kllf3cqNXCCoharDKweH</SecureKey>
+  <VKUrl>https://vk.com/</VKUrl>
+  <ApiUrl>https://api.vk.com/method/</ApiUrl>
+  <AuthUrl>https://oauth.vk.com/access_token?</AuthUrl>
+  <Email>375257542569</Email>
+  <Password>qwaszx@1</Password>
+  <UserId>48747902</UserId>
+  <AccessToken>62893ecf1b57a25b4c8e7e644dc498515dc05581927229baea5940cdf40a097454f69dbf3a1759d911da9</AccessToken>
+  <AppId>7374459</AppId>
+  <SecureKey>Kllf3cqNXCCoharDKweH</SecureKey>
 </Settings>

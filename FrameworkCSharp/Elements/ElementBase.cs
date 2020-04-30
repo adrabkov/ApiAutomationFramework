@@ -232,6 +232,13 @@ where T : PageBase
 			return WebDriver.FindElement(by).Text;
 		}
 
+		public ReadOnlyCollection<IWebElement> GetlistOfElements(By by)
+		{
+			WaitForElementIsVisible(by, 10);
+			ReadOnlyCollection<IWebElement> list = FindAllElements(by);
+			return list;
+		}
+
 		public void Click(By by)
 		{
 			WaitForElementIsClickable(by);

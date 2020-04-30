@@ -1,4 +1,5 @@
-﻿using FrameworkCSharp.Pages;
+﻿using FrameworkCSharp.Enum;
+using FrameworkCSharp.Pages;
 using FrameworkCSharp.Utilities;
 using NUnit.Framework;
 
@@ -13,14 +14,14 @@ namespace FrameworkCSharp.Tests.UI
             string messageForComment = CommonUtilities.GenerateRandomString(10);
             var postId = apiRequests.WallPost(_settings.AccessToken, messageForWall).post_id.ToString();
 
-            var feedPage = Automation.Common
+            var commonPage = Automation.Common
                .inputEmail(_settings.Email)
                .inputPassword(_settings.Password)
                .clickSubmitButton()
-               .GetPage<FeedPage>();
+               .GetPage<CommonPage>();
 
             //creating post on the wall and checking
-            var myProfilePage = feedPage.openMyProfile();
+            var myProfilePage = commonPage.openMyProfileTab((int)MenuItems.My_profile);
             var messageFromWall = myProfilePage.GetTextFromPost(postId);
             Assert.AreEqual(messageForWall, messageFromWall);
 

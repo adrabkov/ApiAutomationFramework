@@ -14,7 +14,7 @@ namespace FrameworkCSharp.Utilities
     {
             protected (IRestRequest, IRestClient) CreateRequest(string token, Method method, string apiMethod, string version = "5.103")
         {
-            var client = new RestClient(CustomerData.ApiUrl + apiMethod);       
+            var client = new RestClient("https://api.vk.com/method/" + apiMethod);       
             RestRequest request = new RestRequest() { Method = method };
             request.AddParameter("access_token", token);
             request.AddParameter("v", version);

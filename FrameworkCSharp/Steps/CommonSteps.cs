@@ -33,13 +33,5 @@ namespace FrameworkCSharp.Steps
             CurrentPage = _signInPage.clickLogIn();
             return this;
         }
-
-        public CommonSteps MenuSelect(int menu)
-        {
-            var profilePage = GetCurrentPage<MyProfilePage>();
-            CurrentPage = profilePage.openCommunitiesTab(menu);
-            return this;
-        }
-
     }
 }

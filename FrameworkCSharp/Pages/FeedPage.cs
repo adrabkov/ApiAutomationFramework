@@ -15,8 +15,6 @@ namespace FrameworkCSharp.Pages
 
         private readonly By myProfileLink = By.XPath("//div[@id='side_bar_inner']//li[1]");
 
-        public MyProfilePage openMyProfile() => ClickElementBy<MyProfilePage>(myProfileLink);
-
 
 
     }

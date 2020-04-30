@@ -1,4 +1,5 @@
-﻿using FrameworkCSharp.Pages;
+﻿using FrameworkCSharp.Enum;
+using FrameworkCSharp.Pages;
 using FrameworkCSharp.Utilities;
 using NUnit.Framework;
 
@@ -11,14 +12,14 @@ namespace FrameworkCSharp.Tests.UI
         {
             var messageForPost = CommonUtilities.GenerateRandomString(10);
 
-            var feedPage = Automation.Common
+            var commonPage = Automation.Common
               .inputEmail(_settings.Email)
               .inputPassword(_settings.Password)
               .clickSubmitButton()
-              .GetPage<FeedPage>();
+              .GetPage<CommonPage>();
 
             //creating post on the wall
-            var myProfile = feedPage.openMyProfile();
+            var myProfile = commonPage.openMyProfileTab((int)MenuItems.My_profile);
             myProfile.CreatePost(messageForPost);
 
             //check that the post with the correct text appeared on the wall

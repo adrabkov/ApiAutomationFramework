@@ -9,14 +9,13 @@ namespace FrameworkCSharp.Tests.UI
         [Test]
         public void addCommunitiesAndCheck()
         {
-            var feedPage = Automation.Common
+            var commonPage = Automation.Common
               .inputEmail(_settings.Email)
               .inputPassword(_settings.Password)
               .clickSubmitButton()
-              .GetPage<FeedPage>();
+              .GetPage<CommonPage>();
 
-            var myProfile = feedPage.openMyProfile();
-            var communities = myProfile.openCommunitiesTab((int)MenuItems.Communities);
+            var communities = commonPage.openCommunitiesTab((int)MenuItems.Communities);
 
             //Find the most popular film group
             communities.FillSearchCommunities("film");
@@ -28,7 +27,7 @@ namespace FrameworkCSharp.Tests.UI
             var groupPage = communities.OpenGroup();
             var expectedFilmName = groupPage.getFilmName();
             groupPage.clickFollowButton();
-            feedPage.openMyProfile();
+            var myProfile = commonPage.openMyProfileTab((int)MenuItems.My_profile);
 
             //check added group is present on the main page
             Assert.IsTrue(myProfile.FollowingListIsContains(expectedFilmName));

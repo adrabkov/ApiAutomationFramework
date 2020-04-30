@@ -20,7 +20,6 @@ namespace FrameworkCSharp.Pages
         private readonly By ItemsMenu = By.XPath("//div[@id='side_bar_inner']//li");
         private readonly By FollowingGroups = By.XPath("//div[contains(@class, 'module_body')]");
 
-
         public string GetTextFromPost(string postId)
         {
             By postBody = By.XPath("//div[@id='wpt588855326_" + postId + "']/div");
@@ -71,10 +70,6 @@ namespace FrameworkCSharp.Pages
             return listWithMessages;
         }
 
-        public CommunitiesPage openCommunitiesTab(int menu) => ClickIWebElement<CommunitiesPage>(listOfMenuItems(ItemsMenu)[menu]);
-
-        public PhotosPage openPhotosTab(int menu) => ClickIWebElement<PhotosPage>(listOfMenuItems(ItemsMenu)[menu]);
-
         public bool FollowingListIsContains(string filmName)
         {
             bool result = false;
@@ -97,7 +92,5 @@ namespace FrameworkCSharp.Pages
             ReadOnlyCollection<IWebElement> menu = FindAllElements(by);
             return menu;
         }
-
-
     }
 }
