@@ -19,7 +19,7 @@ namespace FrameworkCSharp.Tests.UI
               .GetPage<CommonPage>();
 
             //creating post on the wall
-            var myProfile = commonPage.openMyProfileTab((int)MenuItems.My_profile);
+            var myProfile = commonPage.openMyProfileTab();
             myProfile.CreatePost(messageForPost);
 
             //check that the post with the correct text appeared on the wall

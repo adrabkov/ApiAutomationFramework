@@ -16,7 +16,7 @@ namespace FrameworkCSharp.Tests.UI
               .GetPage<CommonPage>();
 
             //upload photo
-            var photos = commonPage.openPhotosTab((int)MenuItems.Photos);
+            var photos = commonPage.openPhotosTab();
             photos.uploadImage();
 
             //checking the foto is displayed

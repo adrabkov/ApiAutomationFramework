@@ -21,7 +21,7 @@ namespace FrameworkCSharp.Tests.UI
                .GetPage<CommonPage>();
 
             //creating post on the wall and checking
-            var myProfilePage = commonPage.openMyProfileTab((int)MenuItems.My_profile);
+            var myProfilePage = commonPage.openMyProfileTab();
             var messageFromWall = myProfilePage.GetTextFromPost(postId);
             Assert.AreEqual(messageForWall, messageFromWall);
 

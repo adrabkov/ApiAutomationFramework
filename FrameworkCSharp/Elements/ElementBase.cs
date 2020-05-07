@@ -140,6 +140,12 @@ namespace FrameworkCSharp.Elements
 			clickableElement.Click();
 		}
 
+		public void ClickWebElementBy(By by, IWebElement webElement, int timeoutInSec = 10, int pollIntervalSec = 0)
+		{
+			WaitForElementIsClickable(by);
+			webElement.Click();
+		}
+
 		protected T ClickElementBy<T>(By by, int timeoutInSec = DEFAULT_TIMEOUT_IN_SEC, int pollIntervalInSec = 0)
 	where T : PageBase
 		{

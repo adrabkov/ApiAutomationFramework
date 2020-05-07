@@ -2,9 +2,6 @@
 using FrameworkCSharp.Pages;
 using FrameworkCSharp.Utilities;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FrameworkCSharp.Tests.UI
 {
@@ -20,7 +17,7 @@ namespace FrameworkCSharp.Tests.UI
                 .clickSubmitButton()
                 .GetPage<CommonPage>();
 
-            var messages = commonPage.openMessageTab((int)MenuItems.Messages);
+            var messages = commonPage.openMessageTab();
 
             var writeMessage = messages.OpenDialog("Drabkov");
             writeMessage.InputMessage(textMessage);
@@ -37,7 +34,7 @@ namespace FrameworkCSharp.Tests.UI
                 .clickSubmitButton()
                 .GetPage<CommonPage>();
 
-            var messages = commonPage.openMessageTab((int)MenuItems.Messages);
+            var messages = commonPage.openMessageTab();
             var writeMessage = messages.OpenDialog("Drabkov");
             writeMessage.InputMessage(textMessage);
             writeMessage.addAttachment();

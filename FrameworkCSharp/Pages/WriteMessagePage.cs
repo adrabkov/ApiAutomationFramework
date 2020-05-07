@@ -45,11 +45,10 @@ namespace FrameworkCSharp.Pages
 
         public void addAttachment()
         {
-            Move(moreItemsLabel);
+            ClickElementBy(moreItemsLabel);
             ClickElementBy(addPhoto);
             WaitForElementVisible(choosePhotoPopUp);
             UploadFile(addPhotoInput, CommonUtilities.getPath("test.jpg"));
-            WaitUntilElementIsVisible(progressBar, 10);
         }
     }
 }

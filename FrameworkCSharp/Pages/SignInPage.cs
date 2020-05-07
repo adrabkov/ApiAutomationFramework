@@ -16,12 +16,10 @@ namespace FrameworkCSharp.Pages
         private readonly By passwordField = By.Id("index_pass");
         private readonly By submitButton = By.Id("index_login_button");
 
+        public bool loginButtonIsDisplayed() => IsElementVisible(submitButton);
         public void inputLogin(string email) => SendKeys(loginField, email);
-
         public void inputPassword(string password) => SendKeys(passwordField, password);
-
         public void clickSign() => Click(submitButton);
-
         public CommonPage clickLogIn() => ClickElementBy<CommonPage>(submitButton);
     }
 }

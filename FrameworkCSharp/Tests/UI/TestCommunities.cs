@@ -15,7 +15,7 @@ namespace FrameworkCSharp.Tests.UI
               .clickSubmitButton()
               .GetPage<CommonPage>();
 
-            var communities = commonPage.openCommunitiesTab((int)MenuItems.Communities);
+            var communities = commonPage.openCommunitiesTab();
 
             //Find the most popular film group
             communities.FillSearchCommunities("film");
@@ -27,7 +27,7 @@ namespace FrameworkCSharp.Tests.UI
             var groupPage = communities.OpenGroup();
             var expectedFilmName = groupPage.getFilmName();
             groupPage.clickFollowButton();
-            var myProfile = commonPage.openMyProfileTab((int)MenuItems.My_profile);
+            var myProfile = commonPage.openMyProfileTab();
 
             //check added group is present on the main page
             Assert.IsTrue(myProfile.FollowingListIsContains(expectedFilmName));

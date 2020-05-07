@@ -20,8 +20,6 @@ namespace FrameworkCSharp.Tests.UI
             Assert.IsTrue(friendsPage.getPageName().Contains(nameFriend), "");
             friendsPage.clickAddFriendButton();
             Assert.AreEqual(friendsPage.getTextButton(), "Request sent", "Request is not sent");
-
-
         }
     }
 }
