@@ -4,7 +4,8 @@ using NUnit.Framework;
 
 namespace FrameworkCSharp.Tests.UI
 {
-    class TestUploadPhoto : BaseTest
+    [TestFixture]
+    public class TestUploadPhoto : BaseTest
     {
         [Test]
         public void uploadPhotoAndCheck()

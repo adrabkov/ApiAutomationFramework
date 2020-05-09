@@ -5,6 +5,7 @@ using NUnit.Framework;
 
 namespace FrameworkCSharp.Tests.UI
 {
+    [TestFixture]
     public class TestSendMessage : BaseTest
     {
         [Test]

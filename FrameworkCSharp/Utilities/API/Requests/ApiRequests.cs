@@ -9,12 +9,12 @@ namespace FrameworkCSharp.Utilities.API.Requests
     public class ApiRequests : ApiUtilities
     {
 
-        public string VK_GetServerToken(string client_id, string client_secret)
-        {
-            var response =  GetRequest( "https://oauth.vk.com/access_token?client_id=" + client_id + "&client_secret=" + client_secret + "&v=5.85&grant_type=client_credentials");
-            dynamic stringResponse = JsonConvert.DeserializeObject(response.ToString());
-            return stringResponse.access_token;
-        }
+        //public string VK_GetServerToken(string client_id, string client_secret)
+        //{
+        //    var response =  GetRequest( "https://oauth.vk.com/access_token?client_id=" + client_id + "&client_secret=" + client_secret + "&v=5.85&grant_type=client_credentials");
+        //    dynamic stringResponse = JsonConvert.DeserializeObject(response.ToString());
+        //    return stringResponse.access_token;
+        //}
 
         public CommentResponse CreateCommentForPost(string token, string postId, string message)
         {

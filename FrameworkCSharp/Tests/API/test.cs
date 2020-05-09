@@ -16,11 +16,5 @@ namespace FrameworkCSharp.Tests.API
             //apiUtilities.WallPost(token, customerData.GenerateRandomString(15));
         }
 
-        [Test]
-        public void VK_GetServerToken()
-        {
-            apiRequests.VK_GetServerToken(_settings.AppId, _settings.SecureKey);
-        }
-
     }
 }

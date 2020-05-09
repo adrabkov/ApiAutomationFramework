@@ -6,6 +6,7 @@ using System.Text;
 
 namespace FrameworkCSharp.Tests.UI
 {
+    [TestFixture]
     public class TestChangeSettings : BaseTest
     {
         [Test]

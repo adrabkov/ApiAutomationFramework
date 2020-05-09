@@ -5,7 +5,8 @@ using NUnit.Framework;
 
 namespace FrameworkCSharp.Tests.UI
 {
-    class TestPostWall : BaseTest
+    [TestFixture]
+    public class TestPostWall : BaseTest
     {
         [Test]
         public void CreatePostOnWallAndCheckAndDelete()

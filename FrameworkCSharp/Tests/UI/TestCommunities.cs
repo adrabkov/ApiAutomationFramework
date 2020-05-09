@@ -4,7 +4,8 @@ using NUnit.Framework;
 
 namespace FrameworkCSharp.Tests.UI
 {
-    class TestCommunities : BaseTest
+    [TestFixture]
+    public class TestCommunities : BaseTest
     {
         [Test]
         public void addCommunitiesAndCheck()
