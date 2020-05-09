@@ -30,7 +30,6 @@ namespace FrameworkCSharp.Tests.UI
             //find all posts for the specified period
             var listMessages = myProfile.getListMessage("24");
             Assert.IsTrue(listMessages.Count != 0, "nothing found for the specified time");
-
         }
     }
 }
