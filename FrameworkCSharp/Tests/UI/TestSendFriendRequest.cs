@@ -4,7 +4,6 @@ using NUnit.Framework;
 namespace FrameworkCSharp.Tests.UI
 {
     [TestFixture]
-    [Parallelizable(ParallelScope.Fixtures)]
     public class TestSendFriendRequest : BaseTest
     {
         [Test]

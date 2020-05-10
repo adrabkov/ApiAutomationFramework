@@ -7,7 +7,6 @@ using System.Text;
 namespace FrameworkCSharp.Tests.UI
 {
     [TestFixture]
-    [Parallelizable(ParallelScope.Fixtures)]
     public class TestLogin : BaseTest
     {
         [Test]
