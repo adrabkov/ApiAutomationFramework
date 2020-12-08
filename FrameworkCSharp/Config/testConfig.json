@@ -1,0 +1,24 @@
+{
+  "implicitWaitTimeout": 10,
+  "Current_Environment": "Stage",
+  "BrowserName": "Chrome",
+  "TestRemotely": "false",
+  "TestHeadless": "False",
+
+  "Docker": {
+    "RemoteAddress": "http://selenium_hub:4444/wd/hub/",
+    "Search_Web": {
+      "URL": "http://localhost:3006/",
+      "URLApiListingToken": "https://stage-id.awscalnp.manheim.com/",
+      "URLApiListing": "https://stage-api.awscalnp.manheim.com/listing-service/listings/"
+    }
+  },
+  "Stage": {
+    "RemoteAddress": "http://selenium_hub:4444/wd/hub/",
+    "Search_Web": {
+      "URL": "https://vk.com",
+      "URLApiListingToken": "https://stage-id.awscalnp.manheim.com/",
+      "URLApiListing": "https://stage-api.awscalnp.manheim.com/listing-service/listings/"
+    }
+  }
+}

@@ -1,23 +1,23 @@
-﻿using FrameworkCSharp.Driver;
+﻿using CAD.CD.Search.TestFramework.Config;
+using FrameworkCSharp.Driver;
 using FrameworkCSharp.Enum;
 using FrameworkCSharp.Pages;
 using FrameworkCSharp.Utilities;
 using FrameworkCSharp.Utilities.API.Requests;
 using NUnit.Framework;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
 using System;
 using System.Collections.Concurrent;
-using WebDriverManager.DriverConfigs.Impl;
 
 namespace FrameworkCSharp
 {
     public abstract class BaseTest : DriverHolder
     {
-        protected readonly Settings _settings = CommonUtilities.GetSettings(@"..\..\..\QASettings.xml");
+        protected readonly Settings _settings = ConfigLoader.GetSettings("QASettings");
         protected ApiRequests apiRequests = new ApiRequests();
         private ConcurrentDictionary<string, AutomationContext> _automationContext = new ConcurrentDictionary<string, AutomationContext>();
         private const int IMPLICIT_TIMEOUT = WaitDefaults.IMPLICIT_TIMEOUT;
+        protected static IWebDriver driver;
 
         protected AutomationContext Automation
         {

@@ -2,6 +2,7 @@
 <Settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <!--<Browser>remote|browser=chrome|version=81.0|capabilities=enableVNC,true;screenResolution,1920x1080x24|uri=http://192.168.0.104:4444/wd/hub </Browser>-->
   <Browser>Chrome </Browser>
+  <TestRemotely>False</TestRemotely>
   <VKUrl>https://vk.com/</VKUrl>
   <ApiUrl>https://api.vk.com/method/</ApiUrl>
   <AuthUrl>https://oauth.vk.com/access_token?</AuthUrl>

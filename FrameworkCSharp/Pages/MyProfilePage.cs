@@ -52,7 +52,7 @@ namespace FrameworkCSharp.Pages
             List<string> listWithTextPost = new List<string>();
             foreach (IWebElement text in productList) { listWithTextPost.Add(text.Text); }
             return listWithTextPost;
-            }
+         }
 
         public List<string> getListMessage(string time)
         {

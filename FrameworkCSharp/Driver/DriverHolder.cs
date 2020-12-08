@@ -1,127 +1,88 @@
-﻿using FrameworkCSharp.Utilities;
+﻿using CAD.CD.Search.TestFramework.Config;
+using FrameworkCSharp;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Remote;
+using OpenQA.Selenium.Support.UI;
 using System;
-using System.Collections.Generic;
 using WebDriverManager.DriverConfigs.Impl;
 
-namespace FrameworkCSharp.Driver
+namespace CAD.CD.Search.TestFramework.Driver
 {
     public class DriverHolder
     {
-        public static IWebDriver driver { get; set; }
+        private readonly Settings _settings = ConfigLoader.GetSettings("QASettings");
+        private IWebDriver _currentWebDriver;
+        private WebDriverWait _wait;
 
-        private readonly object _context;
-
-        private Uri _remoteWebDriverClusterUri;
-
-        protected IWebDriver GetDriver(string browserString)
+        public IWebDriver Current
         {
-            if (browserString.Contains("remote"))
+            get
             {
-                return GetRemoteDriver(browserString);
-            }
-            else
-                return GetLocalDriver();
-        }
-
-        private IWebDriver GetLocalDriver()
-        {
-            if (driver == null)
-            {
-                new WebDriverManager.DriverManager().SetUpDriver(new ChromeConfig());
-                driver = new ChromeDriver();
-            }
-
-            return driver;
-        }
-
-        private IWebDriver GetRemoteDriver(string connectionString)
-        {
-            Uri uri = null;
-            string browser = null;
-            string version = null;
-            var options = connectionString.Split('|');
-            var caps = new Dictionary<string, string>();
-
-            foreach (var option in options)
-            {
-                var optionParts = option.Split('=');
-
-                if (optionParts.Length != 2)
-                    continue;
-
-                var opt = optionParts[0];
-                var val = optionParts[1];
-
-                switch (opt)
+                if (_currentWebDriver == null)
                 {
-                    case "uri":
-                        uri = new Uri(val);
-                        break;
-                    case "browser":
-                        browser = val;
-                        break;
-                    case "version":
-                        version = val;
-                        break;
-                    case "capabilities":
-                        if (val.Contains(","))
-                        {
-                            var settings = val.Split(';');
-
-                            foreach (var setting in settings)
-                            {
-                                var settingParts = setting.Split(',');
-
-                                if (settingParts.Length != 2)
-                                    continue;
-
-                                var settingKey = settingParts[0];
-                                var settingValue = settingParts[1];
-
-                                caps.Add(settingKey, settingValue);
-                            }
-                        }
-                        break;
-                    default:
-                        break;
+                    _currentWebDriver = GetWebDriver();
                 }
+
+                return _currentWebDriver;
             }
-
-            _remoteWebDriverClusterUri = uri;
-
-            var capabilities = new DesiredCapabilities(browser, version, new Platform(PlatformType.Any));
-
-            foreach (var cap in caps)
-            {
-                var key = cap.Key;
-                var val = cap.Value;
-
-                bool settingBool = false;
-                int settingInt = -1;
-
-                if (Boolean.TryParse(val, out settingBool))
-                    capabilities.SetCapability(key, settingBool);
-                else if (Int32.TryParse(val, out settingInt))
-                    capabilities.SetCapability(key, settingInt);
-                else
-                    capabilities.SetCapability(key, val);
-            }
-
-            if (_context != null && _context is string)
-                capabilities.SetCapability("name", _context);
-
-            var driver = new RemoteWebDriver(_remoteWebDriverClusterUri, capabilities, TimeSpan.FromMinutes(10));
-            driver.FileDetector = new LocalFileDetector();
-            return driver;
         }
 
-        protected void Clean()
+        public WebDriverWait Wait
         {
-            driver.Quit();
-            driver = null;
+            get
+            {
+                if (_wait == null)
+                {
+                    this._wait = new WebDriverWait(Current, TimeSpan.FromSeconds(20));
+                }
+                return _wait;
+            }
+        }
+
+        private IWebDriver GetWebDriver()
+        {
+            string remoteAddressConfigSetting = null;
+            var browserName = _settings.Browser;
+            string testRemotelyConfigSetting = ConfigLoader.LoadJson("testConfig")["TestRemotely"];
+            var testRemotely = testRemotelyConfigSetting == null ? false : Boolean.Parse(testRemotelyConfigSetting);
+
+            switch (browserName)
+            {
+
+                case "Chrome":
+                    ChromeOptions chromeOptions = new ChromeOptions();
+                    if (testRemotely)
+                    {
+                        return new RemoteWebDriver(new Uri(remoteAddressConfigSetting), chromeOptions.ToCapabilities(), TimeSpan.FromMinutes(5));
+                    }
+                    else
+                    {
+                        new WebDriverManager.DriverManager().SetUpDriver(new ChromeConfig());
+                        return new ChromeDriver();
+                    }
+
+                case "Firefox":
+                    FirefoxOptions firefoxOptions = new FirefoxOptions();
+                    if (testRemotely)
+                    {
+                        return new RemoteWebDriver(new Uri(remoteAddressConfigSetting), firefoxOptions.ToCapabilities(), TimeSpan.FromMinutes(5));
+                    }
+                    else
+                    {
+                        new WebDriverManager.DriverManager().SetUpDriver(new FirefoxConfig());
+                        return new FirefoxDriver();
+                    }
+
+                default:
+                    throw new NotSupportedException("not supported browser: <null>");
+            }
+        }
+
+        public void Quit()
+        {
+            _currentWebDriver?.Quit();
         }
     }
 }

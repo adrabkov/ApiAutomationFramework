@@ -70,35 +70,6 @@ namespace FrameworkCSharp.Utilities
                 var resp = response.Content.ReadAsStreamAsync().ToString();
                 return resp;
             }
-
-            //var Vk = new HttpClient();
-            //Vk.BaseAddress = new Uri(req);
-            //Vk.DefaultRequestHeaders.Add("Connection", "close");
-            //Vk.DefaultRequestHeaders.Add("User-Agent", "RM");
-
-            //HttpResponseMessage response = await Vk.GetAsync(req);
-            //response.EnsureSuccessStatusCode();
-            //return await response.Content.ReadAsStringAsync();
-
-            //HttpWebRequest request = (HttpWebRequest)WebRequest.Create(req);
-            //request.UseDefaultCredentials = true;
-
-            //request.PreAuthenticate = true;
-            //request.Credentials = CredentialCache.DefaultCredentials;
-            //request.Method = "GET";
-            //request.Host = host;
-            //request.UserAgent = "RM";
-            //request.ContentType = "application/x-www-form-urlencoded";
-            //request.KeepAlive = false;
-
-
-            //using (HttpWebResponse responsevk = (HttpWebResponse)request.GetResponse())
-            //using (var stream = responsevk.GetResponseStream())
-            //using (var streamReader = new StreamReader(stream, Encoding.UTF8))
-            //{
-            //    str = streamReader.ReadToEnd();
-            //}
-            //return str;
         }
 
     }

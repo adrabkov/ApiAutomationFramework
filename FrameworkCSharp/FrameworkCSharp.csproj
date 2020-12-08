@@ -27,11 +27,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="nunit.framework">
       <HintPath>bin\Debug\netcoreapp3.1\nunit.framework.dll</HintPath>
-    </Reference>
-    <Reference Include="xNet">
-      <HintPath>C:\Users\Aliaksandr.Drabkou\Desktop\xNet\xNet.dll</HintPath>
     </Reference>
   </ItemGroup>
 

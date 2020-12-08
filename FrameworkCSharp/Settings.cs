@@ -3,6 +3,7 @@
     public class Settings
     {
         public string Browser { get; set; }
+        public string TestRemotely { get; set; }
         public string VKUrl { get; set; }
         public string ApiUrl { get; set; }
         public string AuthUrl { get; set; }

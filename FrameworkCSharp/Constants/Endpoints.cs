@@ -1,6 +1,6 @@
 ﻿namespace FrameworkCSharp.Enum
 {
-    static class ApiMethods
+    static class Endpoints
     {
         public const string wallPost = "wall.post";
         public const string friendsGetLists = "friends.get";
